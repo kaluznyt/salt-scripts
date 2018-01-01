@@ -10,7 +10,10 @@ Write-Host "Downloading Minion setup from $minionInstallerUrl"
 
 if(!(Test-Path $saltMinionInstallerLocalPath))
 {
-	Start-BitsTransfer -Source $minionInstallerUrl -Destination $saltMinionInstallerLocalPath
+	#Start-BitsTransfer -Source $minionInstallerUrl -Destination $saltMinionInstallerLocalPath
+	
+	Copy-Item -Path \\192.168.159.1\soft\Salt-Minion-2017.7.2-Py2-AMD64-Setup.exe -Destination $saltMinionInstallerLocalPath -Force
+	
 }
 
 Write-Host "Installing Minion..."	
