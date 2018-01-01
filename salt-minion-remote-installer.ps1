@@ -35,9 +35,9 @@ $remoteMachines |% {
 	
 	copy-item $saltMinionInstallerLocalPath $remoteTempFile -ToSession $session
 	
-	Invoke-Command -Session $session -ArgumentList $remoteTempFile -ScriptBlock  { param($p1)
+	Invoke-Command -Session $session -ArgumentList $remoteTempFile,$saltMasterName,$saltMinionName -ScriptBlock  { param($p1,$p2,$p3)
 		#Start-Process c:\windows\temp\installer.exe -ArgumentList '/silent' -Wait
-		Start-Process $p1 -ArgumentList '/S /master=$saltMasterName /minion-name=$saltMinionName /start-minion=1' -Wait
+		Start-Process $p1 -ArgumentList '/S /master=$p2 /minion-name=$p3 /start-minion=1' -Wait
 		
 	}	
 }
