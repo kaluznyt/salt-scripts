@@ -6,12 +6,18 @@ PARAM($masterName, $minionName, $minionInstallerUrl)
 	$saltMinionInstallerLocalPath = "C:\tmp\$saltMinionInstallerExe"
 	#$saltMinionInstallerUrl = "https://repo.saltstack.com/windows/$saltMinionInstallerExe"
 
+	Write-Host "Downloading Minion setup from $minionInstallerUrl"	
+	
 	if(!(Test-Path $saltMinionInstallerLocalPath))
 	{
 		Start-BitsTransfer -Source $minionInstallerUrl -Destination $saltMinionInstallerLocalPath
 	}
-		
+
+	Write-Host "Installing Minion..."	
+	
 	Start-Process $saltMinionInstallerLocalPath -ArgumentList "/S /master=$masterName /minion-name=$minionName /start-minion=1" -Wait
+	
+	Write-Host "Installation successful !"
 }		
 
 
