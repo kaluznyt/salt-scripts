@@ -1,25 +1,17 @@
 # https://docs.saltstack.com/en/latest/topics/installation/windows.html
-https://www.vagrantup.com/docs/provisioning/shell.html
-
-$saltMasterName = "salt"
-$saltMinionName = "minion-1"
-
-$saltMinionInstallerExe = "Salt-Minion-2017.7.2-Py2-AMD64-Setup.exe"
-
-$saltMinionInstallerLocalPath = "D:\vms\vagrant\salt\$saltMinionInstallerExe"
-$saltMinionInstallerUrl = "https://repo.saltstack.com/windows/$saltMinionInstallerExe"
-
-if(!(Test-Path $saltMinionInstallerLocalPath))
+# https://www.vagrantup.com/docs/provisioning/shell.html
+PARAM($masterName, $minionName, $minionInstallerUrl)
 {
-	Start-BitsTransfer -Source $saltMinionInstallerUrl -Destination $saltMinionInstallerLocalPath
-}
+	$saltMinionInstallerExe = "Salt-Minion-2017.7.2-Py2-AMD64-Setup.exe"
+	$saltMinionInstallerLocalPath = "C:\tmp\$saltMinionInstallerExe"
+	#$saltMinionInstallerUrl = "https://repo.saltstack.com/windows/$saltMinionInstallerExe"
 
-$remoteTempFolder = "c:\windows\temp\"
-$remoteTempFile = $remoteTempFolder + $saltMinionInstallerExe
-	
-copy-item $saltMinionInstallerLocalPath $remoteTempFile -ToSession $session
-	
-Start-Process $remoteTempFile -ArgumentList '/S /master=$saltMasterName /minion-name=$saltMinionName /start-minion=1' -Wait
+	if(!(Test-Path $saltMinionInstallerLocalPath))
+	{
+		Start-BitsTransfer -Source $minionInstallerUrl -Destination $saltMinionInstallerLocalPath
+	}
 		
+	Start-Process $saltMinionInstallerLocalPath -ArgumentList "/S /master=$masterName /minion-name=$minionName /start-minion=1" -Wait
+}		
 
 
