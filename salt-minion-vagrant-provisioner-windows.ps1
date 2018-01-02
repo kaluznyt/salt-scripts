@@ -11,7 +11,8 @@ Write-Host "Downloading Minion setup from $minionInstallerUrl"
 if(!(Test-Path $saltMinionInstallerLocalPath))
 {
 	if($minionInstallerUrl.Contains("http")){
-		Start-BitsTransfer -Source $minionInstallerUrl -Destination $saltMinionInstallerLocalPath
+		#Start-BitsTransfer -Source $minionInstallerUrl -Destination $saltMinionInstallerLocalPath
+		Invoke-WebRequest -Uri $minionInstallerUrl  -OutFile $saltMinionInstallerLocalPath
 	}
 	else
 	{
