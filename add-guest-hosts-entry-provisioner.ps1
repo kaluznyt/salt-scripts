@@ -12,10 +12,11 @@ if($hostsFileContent.Contains($lineToAdd))
 {
 	Write-Host "Backed up hosts current hosts file"	
 
-	cp "$env:windir\system32\drivers\etc\hosts" "$env:windir\system32\drivers\etc\hosts.bak"
+	cp $hostsFile "$hostsFile.BAK"
 
 	Add-Content $hostsFile "`n$lineToAdd"
-}else
+}
+else
 {
 	Write-Host "Entry was already there"
 }
