@@ -8,7 +8,7 @@ $hostsFile = "$env:windir\system32\drivers\etc\hosts"
 $hostsFileContent = Get-Content $hostsFile
 $lineToAdd = "$ip $hostName"
 
-if($hostsFileContent.Contains($lineToAdd))
+if(!$hostsFileContent.Contains($lineToAdd))
 {
 	cp $hostsFile "$hostsFile.BAK"
 	
