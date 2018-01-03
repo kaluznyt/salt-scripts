@@ -10,9 +10,9 @@ $lineToAdd = "$ip $hostName"
 
 if($hostsFileContent.Contains($lineToAdd))
 {
-	Write-Host "Backed up hosts current hosts file"	
-
 	cp $hostsFile "$hostsFile.BAK"
+	
+	Write-Host "Backed up hosts current hosts file"	
 
 	Add-Content $hostsFile "`n$lineToAdd"
 }
