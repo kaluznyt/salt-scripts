@@ -15,6 +15,8 @@ if(!$hostsFileContent.Contains($lineToAdd))
 	Write-Host "Backed up hosts current hosts file"	
 
 	Add-Content $hostsFile "`n$lineToAdd"
+	
+	Write-Host "Entry $lineToAdd was added to the hosts file"	
 }
 else
 {
